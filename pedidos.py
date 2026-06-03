@@ -5,6 +5,14 @@ pedidos = []
 
 
 def calcular_descuento(total_suma):
+    """Calcula cuánto descuento le toca al pedido según el dinero que cuesta.
+
+    Args:
+        total_suma: Todo lo que suma el pedido antes de aplicar el descuento.
+
+    Returns:
+        El dinero que le vamos a quitar al total del pedido.
+    """
     if total_suma > 100:
         return total_suma * 0.10
     elif total_suma > 50:
