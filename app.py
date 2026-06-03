@@ -17,7 +17,7 @@ def main():
         elif opcion == "2":
             menu_pedidos()
         elif opcion == "3":
-            print("Hasta pronto")
+            print("¡Hasta pronto! Gracias por usar el gestor.")
             salir = True
         else:
             print("Opción incorrecta")
