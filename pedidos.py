@@ -4,6 +4,14 @@ from utilidades import pedir_numero
 pedidos = []
 
 
+def calcular_descuento(total_suma):
+    if total_suma > 100:
+        return total_suma * 0.10
+    elif total_suma > 50:
+        return total_suma * 0.05
+    return 0.0
+
+
 def menu_pedidos():
     fin = False
     while fin == False:
@@ -56,12 +64,18 @@ def nuevo_pedido():
         elif precio <= 0:
             print("Precio incorrecto")
         else:
-            lineas.append({"producto": producto, "cantidad": cantidad, "precio": precio})
+            lineas.append(
+                {"producto": producto, "cantidad": cantidad, "precio": precio}
+            )
             print("Línea añadida")
 
         seguir = input("¿Añadir otro producto? s/n: ")
 
-    pedido = {"cliente": clientes[numero_cliente - 1], "lineas": lineas, "estado": "pendiente"}
+    pedido = {
+        "cliente": clientes[numero_cliente - 1],
+        "lineas": lineas,
+        "estado": "pendiente",
+    }
     pedidos.append(pedido)
     print("Pedido creado")
 
@@ -80,7 +94,16 @@ def ver_pedidos():
                 total = total - total * 0.10
             elif total > 50:
                 total = total - total * 0.05
-            print(str(pos + 1) + ". Cliente: " + p["cliente"]["nombre"] + " | Estado: " + p["estado"] + " | Total: " + str(round(total, 2)) + " €")
+            print(
+                str(pos + 1)
+                + ". Cliente: "
+                + p["cliente"]["nombre"]
+                + " | Estado: "
+                + p["estado"]
+                + " | Total: "
+                + str(round(total, 2))
+                + " €"
+            )
             pos = pos + 1
 
 
@@ -99,12 +122,8 @@ def calcular_total_desde_menu():
     for linea in p["lineas"]:
         suma = suma + linea["cantidad"] * linea["precio"]
 
-    # Reglas de descuento duplicadas a propósito
-    descuento = 0
-    if suma > 100:
-        descuento = suma * 0.10
-    elif suma > 50:
-        descuento = suma * 0.05
+    # Usamos la nueva función extraída
+    descuento = calcular_descuento(suma)
 
     iva = (suma - descuento) * 0.21
     total = suma - descuento + iva
